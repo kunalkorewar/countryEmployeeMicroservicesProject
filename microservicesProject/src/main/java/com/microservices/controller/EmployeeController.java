@@ -29,7 +29,7 @@ public class EmployeeController {
 
         employeeRepository.save(employee);
         EmployeeCacheMaintain.employeeCache.put(employee.getId(), employee);
-        return new ResponseEntity<String>("New Employee Save With EmployeeId "+employee.getId()+" Successfully..", HttpStatus.CREATED);
+        return new ResponseEntity<String>("New Employee Save With EmployeeId " + employee.getId() + " Successfully..", HttpStatus.CREATED);
     }
 
     //update employee operation
@@ -61,20 +61,21 @@ public class EmployeeController {
     public ResponseEntity<?> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = Optional.ofNullable(EmployeeCacheMaintain.employeeCache.get(id));
         if (employee.isPresent()) {
-            return new ResponseEntity<Optional<Employee>>(employee,HttpStatus.OK);
+            return new ResponseEntity<Optional<Employee>>(employee, HttpStatus.OK);
         }
         return new ResponseEntity<String>("EmployeeId " + id + " Not Present..", HttpStatus.OK);
     }
 
     //delete employeeById
     @DeleteMapping("/deleteEmployeeById/{id}")
-    public ResponseEntity<String> deleteEmployeeById(@PathVariable Integer id){
+    public ResponseEntity<String> deleteEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = Optional.ofNullable(EmployeeCacheMaintain.employeeCache.get(id));
         if (employee.isPresent()) {
             employeeRepository.deleteById(id);
             EmployeeCacheMaintain.employeeCache.remove(id);
-            return new ResponseEntity<String>("EmployeeId " + id + " Deleted Successfully..",HttpStatus.OK);
+            return new ResponseEntity<String>("EmployeeId " + id + " Deleted Successfully..", HttpStatus.OK);
         }
         return new ResponseEntity<String>("EmployeeId " + id + " Not Present..", HttpStatus.OK);
+
     }
 }
