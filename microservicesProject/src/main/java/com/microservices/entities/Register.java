@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -18,14 +15,18 @@ public class Register {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String fname;
-    String lname;
-    String username;
-    String mobilenum;
-    String email;
-    String password;
-    String gender;
-    Date createdate;
+    private Integer id;
+    private String fname;
+    private String lname;
+
+    @Column(unique = true)
+    private String username;
+    private String mobilenum;
+
+    @Column(unique = true)
+    private String email;
+    private String password;
+    private String gender;
+    private Date createdate;
 
 }
