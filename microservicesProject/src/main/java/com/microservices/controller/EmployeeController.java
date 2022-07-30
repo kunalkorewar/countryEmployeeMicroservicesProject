@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.stream.Collectors;
 
 @RestController
 // @RequestMapping("api")
+@CrossOrigin
+@RequestMapping("/api")
+
 public class EmployeeController {
 
     @Autowired
@@ -24,13 +28,15 @@ public class EmployeeController {
     @PostMapping("/addEmployee")
     public ResponseEntity<String> saveEmployee(@RequestBody Employee employee) {
 
-        Date createdDate = new Date();
-        employee.setCreateddtm(createdDate);
-        employee.setUpdateddtm(createdDate);
+        //we dnt need to write this code bcz we r sending from from frnt end
+
+//        Date createdDate = new Date();
+//        employee.setCreateddtm(createdDate);
+//        employee.setUpdateddtm(createdDate);
 
         employeeRepository.save(employee);
         EmployeeCacheMaintain.employeeCache.put(employee.getId(), employee);
-        return new ResponseEntity<String>("New Employee Save With EmployeeId "+employee.getId()+" Successfully..", HttpStatus.CREATED);
+        return new ResponseEntity<String>("New Employee Save With EmployeeId " + employee.getId() + " Successfully..", HttpStatus.CREATED);
     }
 
     //update employee operation
@@ -40,9 +46,9 @@ public class EmployeeController {
         Optional<Employee> oldEmployee = Optional.ofNullable(EmployeeCacheMaintain.employeeCache.get(employee.getId()));
 
         if (oldEmployee.isPresent()) {
-            Date updatedDate = new Date();
-            employee.setCreateddtm(oldEmployee.get().getCreateddtm());//this is for cache DB me vaise bhi old jo h vahi rhenga bcz it is not updatable
-            employee.setUpdateddtm(updatedDate);
+//            Date updatedDate = new Date();
+//            employee.setCreateddtm(oldEmployee.get().getCreateddtm());//this is for cache DB me vaise bhi old jo h vahi rhenga bcz it is not updatable
+//            employee.setUpdateddtm(updatedDate);
 
             employeeRepository.save(employee);
             EmployeeCacheMaintain.employeeCache.put(employee.getId(), employee);
@@ -62,20 +68,28 @@ public class EmployeeController {
     public ResponseEntity<?> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = Optional.ofNullable(EmployeeCacheMaintain.employeeCache.get(id));
         if (employee.isPresent()) {
-            return new ResponseEntity<Optional<Employee>>(employee,HttpStatus.OK);
+            return new ResponseEntity<Optional<Employee>>(employee, HttpStatus.OK);
         }
         return new ResponseEntity<String>("EmployeeId " + id + " Not Present..", HttpStatus.OK);
     }
 
     //delete employeeById
     @DeleteMapping("/deleteEmployeeById/{id}")
-    public ResponseEntity<String> deleteEmployeeById(@PathVariable Integer id){
+    public ResponseEntity<String> deleteEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = Optional.ofNullable(EmployeeCacheMaintain.employeeCache.get(id));
         if (employee.isPresent()) {
             employeeRepository.deleteById(id);
             EmployeeCacheMaintain.employeeCache.remove(id);
-            return new ResponseEntity<String>("EmployeeId " + id + " Deleted Successfully..",HttpStatus.OK);
+            return new ResponseEntity<String>("EmployeeId " + id + " Deleted Successfully..", HttpStatus.OK);
         }
         return new ResponseEntity<String>("EmployeeId " + id + " Not Present..", HttpStatus.OK);
+
     }
+
+//    @Autowired
+//    RestTemplate restTemplate;
+//
+//    public void m1(){
+////        restTemplate.
+//    }
 }

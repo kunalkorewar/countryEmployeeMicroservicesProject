@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin
+@RequestMapping("/api")
 public class CountryController {
     @Autowired
     CountryRepository countryRepository;

@@ -40,7 +40,6 @@ class MicroservicesProjectApplicationTests {
 		Assertions.assertEquals(201 | 200,201 | 200);
 	}
 
-
 	// getAllCountries
 	@Test
 	public void getAllCountriesAPI() throws URISyntaxException {
@@ -61,10 +60,6 @@ class MicroservicesProjectApplicationTests {
 		Assertions.assertEquals(200,result.getStatusCodeValue());
 	}
 
-
-
-
-
 	// deleteCountryById
 	@Test
 	public void deleteCountryByIdAPI() throws URISyntaxException {
@@ -75,6 +70,8 @@ class MicroservicesProjectApplicationTests {
 		Assertions.assertEquals(200,200);
 		System.out.println("test ok..");
 	}
+
+
 
 
 
