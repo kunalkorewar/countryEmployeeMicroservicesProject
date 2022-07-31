@@ -1,15 +1,14 @@
 package com.microservices.cachemaintain;
 
-
 import com.microservices.JPArepo.EmployeeRepository;
 import com.microservices.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
+
 @Component
 public class EmployeeCacheMaintain {
 
@@ -24,9 +23,9 @@ public class EmployeeCacheMaintain {
 //    @Scheduled(cron = "* * * ? * *")//once in every sec
     public void loadCache() {
         System.out.println("employeeCacheStart");
-        employeeList= employeeRepository.findAll();
+        employeeList = employeeRepository.findAll();
         if (!employeeList.isEmpty()) {
-            employeeList.forEach(employee ->employeeCache.put(employee.getId(),employee));
+            employeeList.forEach(employee -> employeeCache.put(employee.getId(), employee));
         }
         System.out.println("employeeCacheEnd");
     }
