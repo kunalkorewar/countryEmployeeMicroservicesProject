@@ -20,7 +20,7 @@ class MicroservicesProjectApplicationTests {
 	@Test
 	public void addCountryAPI() throws URISyntaxException {
 		RestTemplate restTemplate=new RestTemplate();
-		String baseURL="http://localhost:8080/addCountry";
+		String baseURL="http://localhost:8080/api/addCountry";
 		URI uri=new URI(baseURL);
 		Country country=new Country();
 		country.setCname("brazil");
@@ -31,7 +31,7 @@ class MicroservicesProjectApplicationTests {
 	@Test
 	public void updateCountryAPI() throws URISyntaxException {
 		RestTemplate restTemplate=new RestTemplate();
-		String baseURL="http://localhost:8080/updateCountry";
+		String baseURL="http://localhost:8080/api/updateCountry";
 		URI uri=new URI(baseURL);
 		Country country=new Country();
 		country.setCid(10);
@@ -44,7 +44,7 @@ class MicroservicesProjectApplicationTests {
 	@Test
 	public void getAllCountriesAPI() throws URISyntaxException {
 		RestTemplate restTemplate=new RestTemplate();
-		String baseURL="http://localhost:8080/getAllCountries";
+		String baseURL="http://localhost:8080/api/getAllCountries";
 		URI uri=new URI(baseURL);
 		ResponseEntity<String> result=restTemplate.getForEntity(uri,String.class);
 		Assertions.assertEquals(200,result.getStatusCodeValue());
@@ -54,7 +54,7 @@ class MicroservicesProjectApplicationTests {
 	@Test
 	public void getCountryByIdAPI() throws URISyntaxException {
 		RestTemplate restTemplate=new RestTemplate();
-		String baseURL="http://localhost:8080/getCountryById/1";
+		String baseURL="http://localhost:8080/api/getCountryById/1";
 		URI uri=new URI(baseURL);
 		ResponseEntity<String> result=restTemplate.getForEntity(uri,String.class);
 		Assertions.assertEquals(200,result.getStatusCodeValue());
@@ -64,7 +64,7 @@ class MicroservicesProjectApplicationTests {
 	@Test
 	public void deleteCountryByIdAPI() throws URISyntaxException {
 		RestTemplate restTemplate=new RestTemplate();
-		String baseURL="http://localhost:8080/deleteCountryById/6";
+		String baseURL="http://localhost:8080/api/deleteCountryById/6";
 		URI uri=new URI(baseURL);
 		restTemplate.delete(uri);
 		Assertions.assertEquals(200,200);

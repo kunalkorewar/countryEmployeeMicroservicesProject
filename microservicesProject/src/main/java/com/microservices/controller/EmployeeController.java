@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-// @RequestMapping("api")
 @CrossOrigin
 @RequestMapping("/api")
 
